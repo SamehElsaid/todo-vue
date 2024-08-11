@@ -1,5 +1,5 @@
 <script setup>
-const emit = defineEmits(['remove'])
+const emit = defineEmits(['remove', 'update'])
 const { todo, index } = defineProps({
   todo: {
     type: {

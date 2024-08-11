@@ -5,13 +5,16 @@ import { ref, watch } from 'vue'
 
 const toDos = ref(JSON.parse(localStorage.getItem('toDos')) ?? [])
 const addTodo = (todo) => {
+  console.log('run')
   toDos.value = [...toDos.value, todo]
 }
 const removeTodo = (index) => {
+  console.log('run1')
   toDos.value = toDos.value.filter((_, i) => i !== index)
 }
 
 const clearCompletedTask = () => {
+  console.log('run2')
   toDos.value = toDos.value.filter((todo) => !todo.completed)
 }
 
@@ -27,10 +30,14 @@ const resetTodoList = () => {
   toDos.value = []
 }
 
-watch(toDos, (newVal) => {
-  console.log(newVal)
-  localStorage.setItem('toDos', JSON.stringify(newVal))
-})
+watch(
+  () => toDos.value,
+  (newVal) => {
+    console.log(newVal)
+    localStorage.setItem('toDos', JSON.stringify(newVal))
+  },
+  { deep: true }
+)
 </script>
 <template>
   <main>
